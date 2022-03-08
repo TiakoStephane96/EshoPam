@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "EshoPam.Database", "EshoPam.Database\EshoPam.Database.sqlproj", "{8A7BF1C1-DCCE-43DE-9F1F-956ED05CF94D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EshoPam.Repository", "EshoPam.Repository\EshoPam.Repository.csproj", "{CBB62946-122E-482F-9715-04ABBF627E6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +19,10 @@ Global
 		{8A7BF1C1-DCCE-43DE-9F1F-956ED05CF94D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A7BF1C1-DCCE-43DE-9F1F-956ED05CF94D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A7BF1C1-DCCE-43DE-9F1F-956ED05CF94D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{CBB62946-122E-482F-9715-04ABBF627E6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBB62946-122E-482F-9715-04ABBF627E6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBB62946-122E-482F-9715-04ABBF627E6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBB62946-122E-482F-9715-04ABBF627E6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
