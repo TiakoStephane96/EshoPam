@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EshoPam.Repository
 {
-    class CategoryRepository
+    public class CategoryRepository
     {
         private readonly EshopamEntities db;
 
@@ -31,12 +31,14 @@ namespace EshoPam.Repository
             if (category == null)
                 throw new ArgumentNullException(nameof(category));
 
-            var oldCategorie = new EshopamEntities().Users.Find(category.Id);
+            var currentDb = new EshopamEntities();
+
+            var oldCategorie = currentDb.Users.Find(category.Id);
 
             if (oldCategorie == null)
                 throw new KeyNotFoundException($"Category not found !");
 
-            var cat = Get(category.Name);
+            var cat = currentDb.Categories.FirstOrDefault(x => x.Name == category.Name); ;
 
             if (cat != null && cat.Id != oldCategorie.Id)
                 throw new DuplicateWaitObjectException($"Category name {nameof(category.Name)} already exist !");

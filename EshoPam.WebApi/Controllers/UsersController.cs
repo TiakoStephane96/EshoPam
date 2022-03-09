@@ -51,37 +51,63 @@ namespace EshoPam.WebApi.Controllers
         [HttpPost]
         public IHttpActionResult Post(UserModel userModel)
         {
-            if (userModel == null)
-                return BadRequest();
+            try
+            {
+                if (userModel == null)
+                    return BadRequest();
 
-            var user = new User
-                (
-                    0, 
-                    userModel.Username, 
-                    userModel.Password, 
-                    userModel.Fullname, 
-                    userModel.Role
-                );
-            user = userRepository.Add(user);
-            return Ok(new UserModel(user));
+                var user = new User
+                    (
+                        0,
+                        userModel.Username,
+                        userModel.Password,
+                        userModel.Fullname,
+                        userModel.Role
+                    );
+                user = userRepository.Add(user);
+                return Ok(new UserModel(user));
+            }
+            catch (DuplicateWaitObjectException)
+            {
+                return Conflict();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
-        public IHttpActionResult Set(UserModel userModel)
+        public IHttpActionResult Put(UserModel userModel)
         {
-            if (userModel == null)
-                return BadRequest();
+            try
+            {
+                if (userModel == null)
+                    return BadRequest();
 
-            var user = new User
-                (
-                    userModel.Id,
-                    userModel.Username,
-                    userModel.Password,
-                    userModel.Fullname,
-                    userModel.Role
-                );
-            user = userRepository.Set(user);
-            return Ok(new UserModel(user));
+                var user = new User
+                    (
+                        userModel.Id,
+                        userModel.Username,
+                        userModel.Password,
+                        userModel.Fullname,
+                        userModel.Role
+                    );
+                user = userRepository.Set(user);
+                return Ok(new UserModel(user));
+            }
+            catch (KeyNotFoundException)
+            {
+                return NotFound();
+            }
+            catch (DuplicateWaitObjectException)
+            {
+                return Conflict();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
