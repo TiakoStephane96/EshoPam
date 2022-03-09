@@ -39,17 +39,18 @@ namespace EshoPam.Repository
             if (user == null)
                 throw new ArgumentNullException(nameof(user));
 
-            var oldUser = new EshopamEntities().Users.Find(user.Id);
+            var currentDb = new EshopamEntities();
+            var oldUser = currentDb.Users.Find(user.Id);
 
             if (oldUser == null)
                 throw new KeyNotFoundException($"User not found !");
 
-            var us = Get(user.Username);
+            var us = currentDb.Users.FirstOrDefault(x => x.Username == user.Username);
 
             if (us != null && us.Id != oldUser.Id)
                 throw new DuplicateWaitObjectException($"Username {nameof(user.Username)} already exist !");
             
-            user.Password = oldUser.Password != user.Password ? CreateMD5Hash(user.Password) : oldUser.Password;
+            user.Password = !string.IsNullOrEmpty(user.Password) && oldUser.Password != user.Password ? CreateMD5Hash(user.Password) : oldUser.Password;
 
 
             db.Entry(user).State = System.Data.Entity.EntityState.Modified;
@@ -74,11 +75,11 @@ namespace EshoPam.Repository
             return user;
         }
 
-        public string CreateMD5Hash(string input)
+        private string CreateMD5Hash(string input)
         {
             // Step 1, calculate MD5 hash from input
-            MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            MD5 md5 =  MD5.Create();
+            byte[] inputBytes = Encoding.ASCII.GetBytes(input);
             byte[] hashBytes = md5.ComputeHash(inputBytes);
 
             // Step 2, convert byte array to hex string
