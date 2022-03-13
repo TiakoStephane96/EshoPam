@@ -1,10 +1,7 @@
-﻿using EshoPam.Repository;
-using EshoPam.WebApi.Models;
+﻿using EshoPam.Models;
+using EshoPam.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace EshoPam.WebApi.Controllers
@@ -25,7 +22,7 @@ namespace EshoPam.WebApi.Controllers
             if (users == null)
                 return NotFound();
 
-            return Ok(new UserModel(users));
+            return Ok(MapUser(users));
         }
 
         [HttpGet]
@@ -35,7 +32,7 @@ namespace EshoPam.WebApi.Controllers
             if (users == null)
                 return NotFound();
 
-            return Ok(new UserModel(users));
+            return Ok(MapUser(users));
         }
 
         [HttpGet]
@@ -45,7 +42,7 @@ namespace EshoPam.WebApi.Controllers
             if (users == null)
                 return NotFound();
 
-            return Ok(new UserModel(users));
+            return Ok(MapUser(users));
         }
 
         [HttpPost]
@@ -65,7 +62,8 @@ namespace EshoPam.WebApi.Controllers
                         userModel.Role
                     );
                 user = userRepository.Add(user);
-                return Ok(new UserModel(user));
+                return Ok(MapUser(user));
+
             }
             catch (DuplicateWaitObjectException)
             {
@@ -94,7 +92,8 @@ namespace EshoPam.WebApi.Controllers
                         userModel.Role
                     );
                 user = userRepository.Set(user);
-                return Ok(new UserModel(user));
+
+            return Ok(MapUser(user));
             }
             catch (KeyNotFoundException)
             {
@@ -108,6 +107,17 @@ namespace EshoPam.WebApi.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        private UserModel MapUser(User users)
+        {
+            return new UserModel
+            (
+                users.Id,
+                users.Username,
+                users.Fullname,
+                users.Role
+            );
         }
     }
 }

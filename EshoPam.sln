@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EshoPam.Repository", "EshoP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EshoPam.WebApi", "EshoPam.WebApi\EshoPam.WebApi.csproj", "{287B7E7E-51AE-4EC0-95C0-F5CADA0AD0F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EshoPam.Models", "EshoPam.Models\EshoPam.Models.csproj", "{70A05875-2801-4F2E-9B8E-F5ABDB811D94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{287B7E7E-51AE-4EC0-95C0-F5CADA0AD0F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{287B7E7E-51AE-4EC0-95C0-F5CADA0AD0F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{287B7E7E-51AE-4EC0-95C0-F5CADA0AD0F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A05875-2801-4F2E-9B8E-F5ABDB811D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A05875-2801-4F2E-9B8E-F5ABDB811D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A05875-2801-4F2E-9B8E-F5ABDB811D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A05875-2801-4F2E-9B8E-F5ABDB811D94}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

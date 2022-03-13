@@ -1,5 +1,5 @@
 ﻿using EshoPam.Repository;
-using EshoPam.WebApi.Models;
+using EshoPam.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,23 @@ namespace EshoPam.WebApi.Controllers
             if (categories == null)
                 return NotFound();
 
-            return Ok(new CategoryModel(categories));
+            return Ok
+            (
+                new CategoryModel
+                (
+                    categories.Id,
+                    categories.Name,
+                    categories.UserId,
+                    new UserModel
+                    (
+                        categories.User.Id,
+                        categories.User.Username,
+                        categories.User.Fullname,
+                        categories.User.Role
+                    )
+
+                )
+            );
         }
 
         [HttpGet]
@@ -34,8 +50,8 @@ namespace EshoPam.WebApi.Controllers
             var categories = categoryRepository.Get(name);
             if (categories == null)
                 return NotFound();
+            return Ok(MapCategory(categories));
 
-            return Ok(new CategoryModel(categories));
         }
 
         [HttpGet]
@@ -49,7 +65,7 @@ namespace EshoPam.WebApi.Controllers
                     x.Name.ToLower().Contains(searchValue)
                 ) ;
 
-            return Ok(categories.Select( x => new CategoryModel(x)).ToArray());
+            return Ok(categories.Select(x => MapCategory(x)).ToArray());
         }
 
         [HttpPost]
@@ -67,7 +83,7 @@ namespace EshoPam.WebApi.Controllers
                         categoryModel.UserId
                     );
                 category = categoryRepository.Add(category);
-                return Ok(new CategoryModel(category));
+                return Ok(MapCategory(category));
             }
             catch (DuplicateWaitObjectException)
             {
@@ -95,7 +111,23 @@ namespace EshoPam.WebApi.Controllers
                         categoryModel.UserId
                     );
                 category = categoryRepository.Set(category);
-                return Ok(new CategoryModel(category));
+                return Ok
+                (
+                    new CategoryModel
+                    (
+                        category.Id,
+                        category.Name,
+                        category.UserId,
+                        new UserModel
+                        (
+                            category.User.Id,
+                            category.User.Username,
+                            category.User.Fullname,
+                            category.User.Role
+                        )
+
+                    )
+                );
             }
             catch (KeyNotFoundException)
             {
@@ -113,10 +145,44 @@ namespace EshoPam.WebApi.Controllers
         }
 
         [HttpDelete]
-        public IHttpActionResult Deete(int id)
+        public IHttpActionResult Delete(int id)
         {
            var category = categoryRepository.Delete(id);
-            return Ok(new CategoryModel(category));
+            return Ok
+            (
+                new CategoryModel
+                (
+                    category.Id,
+                    category.Name,
+                    category.UserId,
+                    new UserModel
+                    (
+                        category.User.Id,
+                        category.User.Username,
+                        category.User.Fullname,
+                        category.User.Role
+                    )
+
+                )
+            );
+        }
+
+        private CategoryModel MapCategory(Category category)
+        {
+            return new CategoryModel
+            (
+                category.Id,
+                category.Name,
+                category.UserId,
+                new UserModel
+                (
+                    category.User.Id,
+                    category.User.Username,
+                    category.User.Fullname,
+                    category.User.Role
+                )
+
+            );
         }
     }
 }

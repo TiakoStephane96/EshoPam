@@ -1,10 +1,4 @@
-﻿using EshoPam.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace EshoPam.WebApi.Models
+﻿namespace EshoPam.Models
 {
     public class UserModel
     {
@@ -23,7 +17,7 @@ namespace EshoPam.WebApi.Models
 
         }
 
-        public UserModel(int id, string username, string fullname, string role)
+        public UserModel(int id, string username, string fullname, string role):this()
         {
             Id = id;
             Username = username;
@@ -35,12 +29,6 @@ namespace EshoPam.WebApi.Models
             : this(id, username, fullname, role)
         {
             Password = password;
-        }
-
-        public UserModel(User user)
-            :this(user?.Id ?? 0,user?.Username,user?.Fullname,user?.Role)
-        {
-
         }
     }
 }
