@@ -46,7 +46,7 @@ namespace EshoPam.WebApi.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Post(UserModel userModel)
+        public IHttpActionResult Post([FromBody] UserModel userModel)
         {
             try
             {
