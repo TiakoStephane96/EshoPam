@@ -18,7 +18,7 @@ namespace EshoPam.Services
 
         }
 
-        public async Task<UserModel> Login (string username, string password)
+        public async Task<UserModel> LoginAsync(string username, string password)
         {
             //http://localhost:8180/api
             string url = $"Users/username={username}&password={password}";
@@ -65,7 +65,7 @@ namespace EshoPam.Services
         }
 
 
-        public async Task<UserModel> Create(UserModel user)
+        public async Task<UserModel> CreateAsync(UserModel user)
         {
             //http://localhost:8180/api
             string url = $"/Users";
